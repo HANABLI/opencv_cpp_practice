@@ -27,4 +27,19 @@ int main(void) {
     auto emptyOriginal = cv::Mat(emptyMatrix.size(), emptyMatrix.type(), cv::Scalar(100, 100, 100));
     cv::imshow("emptyOriginal", emptyOriginal);
     cv::waitKey(0);
+
+    //Copying a region to another
+    auto copyRoi = image(cv::Range(40, 200), cv::Range(180, 320));
+
+    //Find height and width of the Roi
+    auto roiHeight = copyRoi.size().height;
+    auto roiWidth = copyRoi.size().width;
+
+    // Copy to the left of Face
+    copyRoi.copyTo(imageCopy(cv::Range(40, 40+roiHeight), cv::Range(10, 10+roiWidth)));
+    // Copy to the reight of Face
+    copyRoi.copyTo(imageCopy(cv::Range(40, 40+roiHeight), cv::Range(330, 330+roiWidth)));
+
+    cv::imshow("new image", imageCopy);
+    cv::waitKey(0);
 }
